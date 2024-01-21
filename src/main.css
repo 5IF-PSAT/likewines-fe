@@ -1,0 +1,51 @@
+@import url('https://fonts.cdnfonts.com/css/torus?styles=87767');
+                
+.centered {
+    font-family: 'Torus', sans-serif;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Torus', sans-serif;
+    text-align: center;
+}
+
+.MuiCardHeader-root {
+    font-family: 'Torus', sans-serif;
+}
+
+.MuiCardHeader-subheader {
+    font-size: 1.5rem;
+}
+
+.difficulty {
+    text-decoration: none;
+}
+
+.link {
+    color: #ff66aa;
+    text-decoration: none;
+}
+
+.difficulty:hover, .link:hover {
+    text-decoration: underline;
+}
+
+
+
+.stickybottom {
+    z-index: 9999;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+}
+
+.stickytop {
+    z-index: 9999;
+    text-align: "center";
+    width: 100%;
+    background: #121212;
+    position: sticky;
+    top: 0px;
+}

@@ -23,7 +23,6 @@ const getWine = (query: string) => {
         winery: wine.winery_name,
       };
     });
-    console.log(wines);
     return wines;
   });
 };

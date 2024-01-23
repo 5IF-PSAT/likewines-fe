@@ -7,6 +7,7 @@ import Table from "@mui/material/Table";
 import { tableCellClasses } from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import WineStatsCell from "./WineStatsCell";
+import { CircularProgress } from "@mui/material";
 export interface props {
   id: number;
 }
@@ -17,7 +18,8 @@ export default function WineInfo({ id }: props) {
   );
   if (isLoading) {
     return (
-      <div>
+      <div className="centered">
+        <CircularProgress />
         <h2 className="centered">Loading...</h2>
       </div>
     );

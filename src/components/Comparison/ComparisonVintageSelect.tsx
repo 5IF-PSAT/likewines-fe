@@ -5,7 +5,18 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import vintageService from "../../services/vintage";
 // Copied from https://mui.com/components/selects/#select-with-auto-width
-export default function VintageSelect(props: {
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+export default function ComparisonVintageSelect(props: {
   id: number;
   vintageHandler: (vintage: string) => void;
 }) {
@@ -33,6 +44,7 @@ export default function VintageSelect(props: {
           onChange={hanldleVintageChange}
           autoWidth
           label="Vintage"
+          MenuProps={MenuProps}
         >
           {vintages.map((vintage) => (
             <MenuItem value={vintage}>{vintage}</MenuItem>

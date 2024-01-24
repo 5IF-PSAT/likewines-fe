@@ -1,10 +1,7 @@
-import wineService from "../../services/wine";
-import { Wine, Winery, Region } from "../../interfaces";
-import { useQuery } from "react-query";
 import { useState } from "react";
-import { Container, Grid, Button } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import ComparisonRes from "./ComparisonRes";
-import VintageSelect from "./VintageSelect";
+import ComparisonVintageSelect from "./ComparisonVintageSelect";
 export interface props {
   id: number;
 }
@@ -39,7 +36,10 @@ export default function ComparisonInfo({ id }: props) {
                 alignItems: "center",
               }}
             >
-              <VintageSelect id={id} vintageHandler={vintageHandler} />
+              <ComparisonVintageSelect
+                id={id}
+                vintageHandler={vintageHandler}
+              />
             </div>
           </Grid>
         </Grid>

@@ -8,6 +8,7 @@ import {
   ListItem,
   Typography,
 } from "@mui/material";
+import Link from "@mui/material/Link";
 
 function formatNumber(num: number) {
   // Round to 4 decimal places
@@ -76,10 +77,11 @@ export default function ComparisonRes(props: {
                       >
                         *** Most similar wine ***
                       </Typography>
-
-                      <Typography variant="h6" sx={{ textAlign: "center" }}>
-                        {wine.wine_name} - {wine.vintage}
-                      </Typography>
+                      <Link underline="hover" href={`/comparison/${wine.id}`}>
+                        <Typography variant="h6" sx={{ textAlign: "center" }}>
+                          {wine.wine_name} - {wine.vintage}
+                        </Typography>
+                      </Link>
                       <Typography
                         variant="subtitle2"
                         sx={{ textAlign: "center" }}
@@ -124,9 +126,11 @@ export default function ComparisonRes(props: {
                     key={wine.id}
                   >
                     <Container>
-                      <Typography variant="h6">
-                        {wine.wine_name} - {wine.vintage}
-                      </Typography>
+                      <Link underline="hover" href={`/comparison/${wine.id}`}>
+                        <Typography variant="h6">
+                          {wine.wine_name} - {wine.vintage}
+                        </Typography>
+                      </Link>
                       <Typography variant="subtitle2">
                         {wine.type} - Alc. {wine.abv}
                       </Typography>

@@ -23,7 +23,6 @@ const getWineComparison = (id: number, vintage: number) => {
         vintage: wine.vintage,
       };
     });
-    console.log(wines);
     return wines;
   });
 };

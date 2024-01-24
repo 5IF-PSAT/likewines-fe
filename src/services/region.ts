@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from "../constants";
-const baseUrl = `${BASE_URL}/regions/`;
+const baseUrl = `${BASE_URL}/regions`;
 import { Region } from "../interfaces";
 
 const getRegion = (id: number) => {

@@ -1,56 +1,24 @@
-import wineService from "../../services/wine";
-import { Wine, Winery, Region } from "../../interfaces";
-import { useQuery } from "react-query";
 import { useState } from "react";
-import {
-  Container,
-  Grid,
-  TextField,
-  Button,
-  CircularProgress,
-} from "@mui/material";
-import CalculateRoundedIcon from "@mui/icons-material/CalculateRounded";
-import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import { Container, Grid } from "@mui/material";
 import ComparisonRes from "./ComparisonRes";
+import ComparisonVintageSelect from "./ComparisonVintageSelect";
 export interface props {
   id: number;
 }
 
 export default function ComparisonInfo({ id }: props) {
-  const [vintage, setVintage] = useState(0);
+  const [vintage, setVintage] = useState("");
   const [showComparison, setShowComparison] = useState(false);
-  const { isLoading, isError, data } = useQuery(["id", id], () =>
-    wineService.getWineById(id)
-  );
-  if (isLoading) {
-    return (
-      <div>
-        <h2 className="centered">Loading...</h2>
-      </div>
-    );
-  }
-  if (isError) {
-    return (
-      <div>
-        <h2 className="centered">Error :/</h2>
-      </div>
-    );
-  }
 
-  const handleChange = (vintage: string) => {
+  const vintageHandler = (vintage: string) => {
     // If the input is not a number, don't do anything
     if (isNaN(Number(vintage))) {
-      setVintage(0);
+      setVintage("");
+    } else {
+      setVintage(vintage);
+      setShowComparison(true);
     }
-    setVintage(Number(vintage));
   };
-
-  const handleShowComparison = () => {
-    setShowComparison(true);
-  };
-
-  const wine = data as Wine;
 
   return (
     <>
@@ -68,36 +36,17 @@ export default function ComparisonInfo({ id }: props) {
                 alignItems: "center",
               }}
             >
-              <TextField
-                autoComplete="off"
-                inputProps={{ style: { textAlign: "center" } }}
-                sx={{
-                  width: 200,
-                }}
-                id="search-box"
-                hiddenLabel
-                onChange={(e) => handleChange(e.target.value)}
-                color="secondary"
+              <ComparisonVintageSelect
+                id={id}
+                vintageHandler={vintageHandler}
               />
-            </div>
-          </Grid>
-          <Grid item xs={12}>
-            <div className="centered">
-              <Button
-                variant="outlined"
-                size="large"
-                onClick={() => {
-                  handleShowComparison();
-                }}
-                color="primary"
-              >
-                Compare
-              </Button>
             </div>
           </Grid>
         </Grid>
       </Container>
-      {showComparison && <ComparisonRes wineId={wine.id} vintage={vintage} />}
+      {showComparison && (
+        <ComparisonRes wineId={id} vintage={Number(vintage)} />
+      )}
     </>
   );
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from "../constants";
-const baseUrl = `${BASE_URL}/wineries/`;
+const baseUrl = `${BASE_URL}/wineries`;
 import { Winery } from "../interfaces";
 
 const getWinery = (id: number) => {

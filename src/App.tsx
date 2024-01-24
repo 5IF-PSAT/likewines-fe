@@ -38,7 +38,7 @@ let darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#990012",
+      main: "#de000f",
     },
     secondary: {
       main: "#272727",
@@ -61,7 +61,7 @@ let lightTheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#722F37",
+      main: "#450004",
     },
     secondary: {
       main: "#828282",

@@ -1,7 +1,9 @@
 import axios from "axios";
 import { BASE_URL } from "../constants";
 const baseUrl = `${BASE_URL}`;
-import { Wine } from "../interfaces";
+import { DetailedWine, Wine } from "../interfaces";
+import wineryService from "./winery";
+import regionService from "./region";
 
 const getWine = (query: string) => {
   const request = axios.get(`${baseUrl}/wines/filter/?wine_name=${query}`);
@@ -23,7 +25,6 @@ const getWine = (query: string) => {
         winery: wine.winery_name,
       };
     });
-    console.log(wines);
     return wines;
   });
 };
@@ -31,7 +32,7 @@ const getWine = (query: string) => {
 const getWineById = (id: number) => {
   const request = axios.get(`${baseUrl}/wines/${id}/`);
   return request.then((response) => {
-    const wine: Wine = {
+    const wine: DetailedWine = {
       id: response.data.id,
       wine_id: response.data.wine_id,
       wine_name: response.data.wine_name,
@@ -40,12 +41,25 @@ const getWineById = (id: number) => {
       abv: response.data.abv,
       body: response.data.body,
       acidity: response.data.acidity,
-      region_id: response.data.region_id,
-      winery_id: response.data.winery_id,
+      region_id: response.data.region,
+      winery_id: response.data.winery,
       region: response.data.region_name,
       winery: response.data.winery_name,
+      winery_website: "",
+      region_country: "",
+      country_code: "",
     };
-    return wine;
+
+    return wineryService.getWinery(wine.winery_id).then((winery) => {
+      const newWine = wine;
+      newWine.winery_website = winery.website;
+      return regionService.getRegion(wine.region_id).then((region) => {
+        const newWine = wine;
+        newWine.region_country = region.country;
+        newWine.country_code = region.code;
+        return newWine;
+      });
+    });
   });
 };
 

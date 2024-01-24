@@ -1,43 +1,46 @@
-import wineService from "../../services/wine";
-import { Wine } from "../../interfaces";
-import { useQuery } from "react-query";
-import Card from "@mui/material/Card";
-import Typography from "@mui/material/Typography";
-import Title from "../Title";
-import Table from "@mui/material/Table";
-import { tableCellClasses } from "@mui/material/TableCell";
-import TableBody from "@mui/material/TableBody";
-import WineStatsCell from "../WineStatsCell";
+import { useState } from "react";
+import { Container, Grid } from "@mui/material";
+import PredictionRatingYearSelect from "./PredictionRatingYearSelect";
+import PredictionRes from "./PredictionRes";
 export interface props {
   id: number;
 }
 
-export default function PredictionInfo({ id }: props) {
-  const { isLoading, isError, data } = useQuery(["id", id], () =>
-    wineService.getWineById(id)
-  );
-  if (isLoading) {
-    return (
-      <div>
-        <h2 className="centered">Loading...</h2>
-      </div>
-    );
-  }
-  if (isError) {
-    return (
-      <div>
-        <h2 className="centered">Error :/</h2>
-      </div>
-    );
-  }
+export default function ComparisonInfo({ id }: props) {
+  const [ratingYear, setRatingYear] = useState<number>(2023);
 
-  const wine = data as Wine;
-  //const winery: Winery = wineryService.getWinery(wine.winery_id).then((data) => data);
-  //const region = regionService.getRegion(wine.region_id).then((data) => data);
+  const ratingYearHandler = (vintage: string) => {
+    setRatingYear(Number(vintage));
+  };
 
   return (
     <>
-      <h3 className="centered">{wine.wine_name}</h3>
+      <Container maxWidth="lg">
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <h4 className="centered">
+              What year do you want to keep your bottle to?
+            </h4>
+          </Grid>
+          <Grid item xs={12}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <PredictionRatingYearSelect
+                id={id}
+                ratingYearHandler={ratingYearHandler}
+              />
+            </div>
+          </Grid>
+        </Grid>
+      </Container>
+
+      <PredictionRes wineId={id} ratingYear={Number(ratingYear)} />
     </>
   );
 }

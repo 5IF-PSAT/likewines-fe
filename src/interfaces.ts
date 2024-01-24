@@ -13,6 +13,24 @@ export interface Wine {
   winery: string;
 }
 
+export interface DetailedWine {
+  id: number;
+  wine_id: number;
+  wine_name: string;
+  type: string;
+  elaborate: string;
+  abv: number;
+  body: string;
+  acidity: string;
+  region_id: number;
+  region: string;
+  winery_id: number;
+  winery: string;
+  winery_website: string;
+  region_country: string;
+  country_code: string;
+}
+
 export interface ComparedWine {
   id: number;
   wine_id: number;
@@ -39,4 +57,10 @@ export interface Region {
   region_name: string;
   country: string;
   code: string;
+}
+
+export interface Ratings {
+  batch_vintage: number;
+  actual_rating: number;
+  predict_rating: number;
 }
